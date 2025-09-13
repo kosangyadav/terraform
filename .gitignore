@@ -1,2 +1,4 @@
 *tfstate*
-local-scripts/.terraform*
+*/.terraform*
+*.DS_Store
+*test-rsa*
