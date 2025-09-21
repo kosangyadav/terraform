@@ -22,6 +22,9 @@ terraform refresh
 terraform destroy
 terraform destroy  --auto-approve ; to execute without confirmation
 
+; after execution, to destroy specific resources using -target
+terraform destroy -target aws_security_group.aws_sg
+
 
 
 ; other state's related commands...
