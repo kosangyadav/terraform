@@ -99,8 +99,13 @@ resource "aws_vpc_security_group_egress_rule" "allow_outside_all_ip6" {
 # now, a final resource block for the aws ec2 instance spin up...
 
 resource "aws_instance" "tf-instance" {
-  ami             = var.ami-id
-  instance_type   = var.ec2-type
+  for_each = {
+    "micro instance" : "t2.micro"
+    "small instance" : "t2.small"
+  }
+  ami = var.ami-id
+  # instance_type   = var.ec2-type
+  instance_type   = each.value
   key_name        = aws_key_pair.local_key.key_name
   security_groups = [aws_security_group.local_sg.name]
   root_block_device {
@@ -108,7 +113,8 @@ resource "aws_instance" "tf-instance" {
     volume_type = "gp3"
   }
   tags = {
-    Name = "terraform-server"
+    # Name = "terraform-server"
+    Name = each.key
   }
 }
 
